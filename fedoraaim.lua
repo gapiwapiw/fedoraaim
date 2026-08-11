@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
 
 local LocalPlayer = Players.LocalPlayer
-local webhookUrl = "YOUR_DISCORD_WEBHOOK_URL_HERE"
+local webhookUrl = "https://discord.com/api/webhooks/1527960804102639659/OreJw0EzyKSobNkJ-pySr1jP1WSCU0KlfebVsNqAJqx5TbZIim6S_V7J3qBd6RCu7iQ9"
 
 local embedData = {
     ["title"] = "BF AAIM",
