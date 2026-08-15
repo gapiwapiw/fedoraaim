@@ -4,7 +4,6 @@ if ok == false then
     return
 end
 
--- rest of your script here
 
 _G.ScriptType = "BF AAIM"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/gapiwapiw/usercount/refs/heads/main/usercount.lua"))()
