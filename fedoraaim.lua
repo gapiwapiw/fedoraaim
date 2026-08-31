@@ -1,94 +1,212 @@
 -- PLEASE READ THE TOS CAREFULLY
+local isFileExist = false
+if isfile and isfile("Fedora/agreed.txt") then
+	isFileExist = true
+end
 
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TOSGui"
-screenGui.ResetOnSpawn = false
-screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+if not isFileExist then
+	local screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "TOSGui"
+	screenGui.ResetOnSpawn = false
+	screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 
-local mainFrame = Instance.new("Frame")
-mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 420, 0, 280)
-mainFrame.Position = UDim2.new(0.5, -210, 0.5, -140)
-mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-mainFrame.BorderSizePixel = 0
-mainFrame.Active = true
-mainFrame.Draggable = true
-mainFrame.Parent = screenGui
+	local mainFrame = Instance.new("Frame")
+	mainFrame.Name = "MainFrame"
+	mainFrame.Size = UDim2.new(0, 500, 0, 360)
+	mainFrame.Position = UDim2.new(0.5, -250, 0.5, -180)
+	mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	mainFrame.BorderSizePixel = 0
+	mainFrame.Active = true
+	mainFrame.Draggable = true
+	mainFrame.Parent = screenGui
 
-local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0, 10)
-mainCorner.Parent = mainFrame
+	local mainCorner = Instance.new("UICorner")
+	mainCorner.CornerRadius = UDim.new(0, 10)
+	mainCorner.Parent = mainFrame
 
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Name = "Title"
-titleLabel.Size = UDim2.new(1, -20, 0, 40)
-titleLabel.Position = UDim2.new(0, 10, 0, 5)
-titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "TOS"
-titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLabel.TextSize = 22
-titleLabel.Font = Enum.Font.SourceSansBold
-titleLabel.TextXAlignment = Enum.TextXAlignment.Center
-titleLabel.Parent = mainFrame
+	local titleLabel = Instance.new("TextLabel")
+	titleLabel.Name = "Title"
+	titleLabel.Size = UDim2.new(1, -20, 0, 35)
+	titleLabel.Position = UDim2.new(0, 10, 0, 8)
+	titleLabel.BackgroundTransparency = 1
+	titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	titleLabel.Font = Enum.Font.SourceSansBold
+	titleLabel.TextXAlignment = Enum.TextXAlignment.Center
+	titleLabel.Parent = mainFrame
 
-local bodyLabel = Instance.new("TextLabel")
-bodyLabel.Name = "Body"
-bodyLabel.Size = UDim2.new(1, -30, 0, 160)
-bodyLabel.Position = UDim2.new(0, 15, 0, 45)
-bodyLabel.BackgroundTransparency = 1
-bodyLabel.Text = "By running this script, you allow us to track player counts and share your server JobID for features like auto server finders.\n\nYou accept full responsibility for using this script and understand we are not liable for any account bans."
-bodyLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-bodyLabel.TextSize = 16
-bodyLabel.Font = Enum.Font.SourceSansBold
-bodyLabel.TextWrapped = true
-bodyLabel.TextYAlignment = Enum.TextYAlignment.Top
-bodyLabel.Parent = mainFrame
+	local container = Instance.new("Frame")
+	container.Name = "Container"
+	container.Size = UDim2.new(1, -30, 0, 255)
+	container.Position = UDim2.new(0, 15, 0, 48)
+	container.BackgroundTransparency = 1
+	container.Parent = mainFrame
 
-local agreeButton = Instance.new("TextButton")
-agreeButton.Name = "AgreeButton"
-agreeButton.Size = UDim2.new(0, 170, 0, 40)
-agreeButton.Position = UDim2.new(0, 25, 1, -55)
-agreeButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-agreeButton.Text = "Agree/السماح"
-agreeButton.TextColor3 = Color3.fromRGB(0, 225, 100)
-agreeButton.TextSize = 16
-agreeButton.Font = Enum.Font.SourceSansBold
-agreeButton.Parent = mainFrame
+	local listLayout = Instance.new("UIListLayout")
+	listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	listLayout.Padding = UDim.new(0, 10)
+	listLayout.Parent = container
 
-local agreeCorner = Instance.new("UICorner")
-agreeCorner.CornerRadius = UDim.new(0, 6)
-agreeCorner.Parent = agreeButton
+	local rowHeights = {42, 60, 65, 45}
+	local rows = {}
 
-local disagreeButton = Instance.new("TextButton")
-disagreeButton.Name = "DisagreeButton"
-disagreeButton.Size = UDim2.new(0, 170, 0, 40)
-disagreeButton.Position = UDim2.new(1, -195, 1, -55)
-disagreeButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-disagreeButton.Text = "Disagree/عدم السماح"
-disagreeButton.TextColor3 = Color3.fromRGB(225, 50, 50)
-disagreeButton.TextSize = 15
-disagreeButton.Font = Enum.Font.SourceSansBold
-disagreeButton.Parent = mainFrame
+	for i = 1, 4 do
+		local rowFrame = Instance.new("Frame")
+		rowFrame.Name = "Row" .. i
+		rowFrame.Size = UDim2.new(1, 0, 0, rowHeights[i])
+		rowFrame.BackgroundTransparency = 1
+		rowFrame.LayoutOrder = i
+		rowFrame.Parent = container
 
-local disagreeCorner = Instance.new("UICorner")
-disagreeCorner.CornerRadius = UDim.new(0, 6)
-disagreeCorner.Parent = disagreeButton
+		local numLabel = Instance.new("TextLabel")
+		numLabel.Name = "Num"
+		numLabel.Size = UDim2.new(0, 20, 1, 0)
+		numLabel.Position = UDim2.new(0, 0, 0, 0)
+		numLabel.BackgroundTransparency = 1
+		numLabel.Text = i .. "."
+		numLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		numLabel.TextSize = 15
+		numLabel.Font = Enum.Font.SourceSansBold
+		numLabel.TextYAlignment = Enum.TextYAlignment.Top
+		numLabel.TextXAlignment = Enum.TextXAlignment.Left
+		numLabel.Parent = rowFrame
 
-local userAgreed = false
+		local contentLabel = Instance.new("TextLabel")
+		contentLabel.Name = "Content"
+		contentLabel.Size = UDim2.new(1, -22, 1, 0)
+		contentLabel.Position = UDim2.new(0, 22, 0, 0)
+		contentLabel.BackgroundTransparency = 1
+		contentLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		contentLabel.Font = Enum.Font.SourceSansBold
+		contentLabel.TextWrapped = true
+		contentLabel.TextYAlignment = Enum.TextYAlignment.Top
+		contentLabel.TextXAlignment = Enum.TextXAlignment.Left
+		contentLabel.Parent = rowFrame
 
-disagreeButton.MouseButton1Click:Connect(function()
-	screenGui:Destroy()
-end)
+		table.insert(rows, contentLabel)
+	end
 
-agreeButton.MouseButton1Click:Connect(function()
-	userAgreed = true
-	screenGui:Destroy()
-end)
+	local agreeButton = Instance.new("TextButton")
+	agreeButton.Name = "AgreeButton"
+	agreeButton.Size = UDim2.new(0, 140, 0, 35)
+	agreeButton.Position = UDim2.new(0, 15, 1, -45)
+	agreeButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	agreeButton.TextColor3 = Color3.fromRGB(0, 225, 100)
+	agreeButton.Font = Enum.Font.SourceSansBold
+	agreeButton.Parent = mainFrame
 
-repeat task.wait() until userAgreed or not screenGui.Parent
+	local agreeCorner = Instance.new("UICorner")
+	agreeCorner.CornerRadius = UDim.new(0, 6)
+	agreeCorner.Parent = agreeButton
 
-if not userAgreed then
-	return
+	local langButton = Instance.new("TextButton")
+	langButton.Name = "LangButton"
+	langButton.Size = UDim2.new(0, 140, 0, 35)
+	langButton.Position = UDim2.new(0.5, -70, 1, -45)
+	langButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	langButton.Text = "English | العربية"
+	langButton.TextColor3 = Color3.fromRGB(200, 200, 200)
+	langButton.TextSize = 14
+	langButton.Font = Enum.Font.SourceSansBold
+	langButton.Parent = mainFrame
+
+	local langCorner = Instance.new("UICorner")
+	langCorner.CornerRadius = UDim.new(0, 6)
+	langCorner.Parent = langButton
+
+	local disagreeButton = Instance.new("TextButton")
+	disagreeButton.Name = "DisagreeButton"
+	disagreeButton.Size = UDim2.new(0, 140, 0, 35)
+	disagreeButton.Position = UDim2.new(1, -155, 1, -45)
+	disagreeButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	disagreeButton.TextColor3 = Color3.fromRGB(225, 50, 50)
+	disagreeButton.Font = Enum.Font.SourceSansBold
+	disagreeButton.Parent = mainFrame
+
+	local disagreeCorner = Instance.new("UICorner")
+	disagreeCorner.CornerRadius = UDim.new(0, 6)
+	disagreeCorner.Parent = disagreeButton
+
+	local textsEN = {
+		Title = "Before you continue.",
+		Rules = {
+			"We are not responsible for any account bans. No script is 100% undetectable.",
+			"By using this script, you allow us to collect anonymous usage data (like active user counts and server JobIDs) to power future features such as an auto server finder. This process is 100% safe.",
+			"This script is completely free and keyless. Please do not DM the owner directly regarding bugs or updates. If you find a bug or have a suggestion, open a ticket or message our staff in the Discord server.",
+			"The core script is hidden and heavily obfuscated, but the UI library is completely free and un-obfuscated. Feel free to use it however you want!"
+		},
+		Agree = "Agree",
+		Disagree = "Disagree"
+	}
+
+	local textsAR = {
+		Title = "القوانين.",
+		Rules = {
+			"أنا ما مسؤول عن اي شيئ يبند لحسابك. كل السكربتات تبند اذا شخص يبلغ عليك، لكن نظام حمايتنا قوي.",
+			"By using this script, you allow us to collect anonymous usage data (like active user counts and server JobIDs) to power future features such as an auto server finder. This process is 100% safe.",
+			"هذا السكربت مجاني و بدون مفتاح ١٠٠٪ لكن ممنوع تراسل فيدورا (المبرمج و الصانع للسكربت) في الدسكورد اذا واجهت اي مشكله او عندك اي فكرة اضافة للسكربت، لازم تدخل لسيرفرنا الدسكورد و تفتح تكت او تراسل اي مساعد هناك.",
+			"السكربت مشفر و محمي، لكن نظام الواجهة مفتوح المصدر و مسموح لك استخدامه ب اي شكل يعجبك."
+		},
+		Agree = "السماح",
+		Disagree = "عدم السماح"
+	}
+
+	local currentLang = "EN"
+
+	local function updateLanguage()
+		if currentLang == "EN" then
+			titleLabel.Text = textsEN.Title
+			titleLabel.TextSize = 20
+			for idx, label in ipairs(rows) do
+				label.Text = textsEN.Rules[idx]
+				label.TextSize = 15
+			end
+			agreeButton.Text = textsEN.Agree
+			agreeButton.TextSize = 15
+			disagreeButton.Text = textsEN.Disagree
+			disagreeButton.TextSize = 15
+		else
+			titleLabel.Text = textsAR.Title
+			titleLabel.TextSize = 26
+			for idx, label in ipairs(rows) do
+				label.Text = textsAR.Rules[idx]
+				label.TextSize = 20
+			end
+			agreeButton.Text = textsAR.Agree
+			agreeButton.TextSize = 20
+			disagreeButton.Text = textsAR.Disagree
+			disagreeButton.TextSize = 20
+		end
+	end
+
+	updateLanguage()
+
+	langButton.MouseButton1Click:Connect(function()
+		currentLang = (currentLang == "EN") and "AR" or "EN"
+		updateLanguage()
+	end)
+
+	local userAgreed = false
+
+	disagreeButton.MouseButton1Click:Connect(function()
+		screenGui:Destroy()
+	end)
+
+	agreeButton.MouseButton1Click:Connect(function()
+		userAgreed = true
+		if makefolder and writefile then
+			if isfolder and not isfolder("Fedora") then
+				pcall(makefolder, "Fedora")
+			end
+			pcall(writefile, "Fedora/agreed.txt", "true")
+		end
+		screenGui:Destroy()
+	end)
+
+	repeat task.wait() until userAgreed or not screenGui.Parent
+
+	if not userAgreed then
+		return
+	end
 end
 
 
